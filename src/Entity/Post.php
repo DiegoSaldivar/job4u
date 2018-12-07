@@ -32,6 +32,12 @@ class Post
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
+    
+    
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
 
     public function getId(): ?string
     {
@@ -61,4 +67,22 @@ class Post
 
         return $this;
     }
+    /**
+     * @return \DateTime
+     */
+    public function getCreatedAt():\DateTime
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param mixed $createdAt
+     */
+    public function setCreatedAt():self
+    {
+        $dt = new \DateTime();
+        $this->createdAt = $dt->format('H:i:s d-m-Y');
+        return $this;
+    }
+
 }
