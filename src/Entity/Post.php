@@ -11,8 +11,8 @@ class Post
 {
     /**
      * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="UUID")
+     * @ORM\Column(type="guid")
      */
     private $id;
 
@@ -25,8 +25,15 @@ class Post
      * @ORM\Column(type="blob")
      */
     private $content;
+    
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    private $user;
 
-    public function getId(): ?int
+    public function getId(): ?string
     {
         return $this->id;
     }

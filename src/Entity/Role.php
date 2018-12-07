@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\RoleRepository")
  */
@@ -11,8 +12,8 @@ class Role
 {
     /**
      * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="UUID")
+     * @ORM\Column(type="guid")
      */
     private $id;
 
@@ -20,8 +21,10 @@ class Role
      * @ORM\Column(type="string", length=255)
      */
     private $label;
-
-    public function getId(): ?int
+ 
+    
+    
+    public function getId(): ?string
     {
         return $this->id;
     }
@@ -37,4 +40,6 @@ class Role
 
         return $this;
     }
+    
+   
 }
