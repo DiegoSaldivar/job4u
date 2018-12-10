@@ -7,12 +7,15 @@
   <div class="mx-auto col-md-6 col-10 bg-white p-5" style="">
         <h1 class="mb-4">Log in</h1>
         <form>
-          <div class="form-group"> <input type="email" class="form-control form-control-lg" placeholder="Enter e-mail"
-              id="logemail" required="required" name="logemail"> </div>
-          <div class="form-group mb-3"> <input type="password" class="form-control form-control-lg" placeholder="Password"
-              id="logpassword" required="required" name="logpassword"> <small class="form-text text-muted text-center">
-              <a href="{{ path('register') }}" class="text-primary px-2">Not a registered user? Sign Up!</a>
-            </small> </div> <button type="submit" class="btn btn-block btn-secondary py-2 btn-lg">Log In</button>
+          <div class="form-group"> 
+          	<input type="email" class="form-control form-control-lg" placeholder="Enter e-mail" id="logemail" required="required" name="logemail"> </div>
+          <div class="form-group mb-3"> 
+          	<input type="password" class="form-control form-control-lg" placeholder="Password" id="logpassword" required="required" name="logpassword">
+          </div>
+            <button type="submit" class="btn btn-block btn-secondary py-2 btn-lg">Log In</button>
+            <p class="form-text text-muted text-center">
+              <a href="{{ path('register') }}" class="text-secondary px-2">Not a registered user? Sign Up!</a>
+            </p> 
         </form>
       </div>
     </div>

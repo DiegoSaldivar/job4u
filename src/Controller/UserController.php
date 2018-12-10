@@ -3,6 +3,9 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\User;
+use App\Form\UserFormType;
+use Symfony\Component\HttpFoundation\Request;
 
 class UserController extends Controller
 {
@@ -23,8 +26,22 @@ class UserController extends Controller
     /**
      * @Route("/register",name="register")
      */
-    public function register(){
-        return $this->render('register.html.twig');
+    public function register(Request $request){
+        $user=new User();
+        
+        $userForm=$this->createForm(UserFormType::class,$user,['standalone'=>true]);
+        
+        $userForm->handleRequest($request);
+        if($userForm->isSubmitted()&&$userForm->isValid()) {
+            $user->setVerified(false);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+            return $this->redirectToRoute('login');
+        }
+       
+        
+        return $this->render('register.html.twig',['userForm'=>$userForm->createView()]);
     }
     
     /**
