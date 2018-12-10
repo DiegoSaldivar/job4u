@@ -3,23 +3,45 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Role;
+use App\Form\RoleFormType;
+use Symfony\Component\HttpFoundation\Request;
 
 class RoleController extends Controller
 {
     /**
-     * @Route("/admin/bo/role/list",name="role_list")
+     * @Route("/admin/role/list",name="list_roles")
      */
     public function listOfRole() {
         
-        $this->render('base.html.twig');
+        $roleList=$this->getDoctrine()->getManager()->getRepository(Role::class)->findAll();
+        
+        return $this->render('roles/rolelist.html.twig',['roleList'=>$roleList]);
     }
     
     /**
-     * @Route("/admin/bo/role/create",name="role_create")
+     * @Route("/admin/role/create",name="create_role")
      */
-    public function createRole(){
+    public function createRole(Request $request){
+        $role=new Role();
         
-        $this->render('base.html.twig');
+ 
+        
+        $roleForm=$this->createForm(RoleFormType::class,$role,['standalone'=>true]);
+        
+        
+        $roleForm->handleRequest($request);
+        
+        
+        
+        if($roleForm->isSubmitted()&&$roleForm->isValid()){
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($role);
+            $entityManager->flush();
+            return $this->redirectToRoute('list_roles');
+        }
+        
+        return $this->render('roles/create.html.twig',['roleForm'=>$roleForm->createView()]);
     }
 }
 

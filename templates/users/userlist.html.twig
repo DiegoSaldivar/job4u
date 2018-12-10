@@ -1,0 +1,59 @@
+{% extends 'admin-base.html.twig' %}
+
+{% block title %}Job4u Admin Userlist{% endblock %}
+
+{% block breadcrumb %}
+	<!-- Breadcrumbs-->
+       <ol class="breadcrumb">
+         <li class="breadcrumb-item">
+           <a href="/admin">Dashboard</a>
+         </li>
+         <li class="breadcrumb-item">users</li>
+         <li class="breadcrumb-item active">list</li>
+       </ol>
+{% endblock %}
+
+{% block body %}
+<!-- DataTables Example -->
+<div class="card mb-3">
+	<div class="card-header">
+    	<i class="fas fa-table"></i>Data Table Example
+	</div>
+    <div class="card-body">
+      <div class="table-responsive">
+	        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+	          <thead>
+	            <tr>
+	              <th>Full Name</th>
+	              <th>E-Mail</th>
+	              <th>Username</th>
+	              <th>Verified</th>
+	              <th>Role</th>
+	            </tr>
+	          </thead>
+	          <tfoot>
+	            <tr>
+	              <th>Full Name</th>
+	              <th>E-Mail</th>
+	              <th>Username</th>
+	              <th>Verified</th>
+	              <th>Role</th>
+	            </tr>
+	          </tfoot>
+	          <tbody>
+	            {% for user in userList %}
+	            <tr>
+	              <td>{{ user.getFullname() }}</td>
+	              <td>{{ user.getEmail() }}</td>
+	              <td>{{ user.getUsername() }}</td>
+	              <td>{{ user.getVerified ? 'true' : 'false' }}</td>
+	              <td>{{ user.getRole().getLabel() }}</td>
+	            </tr>
+	            {% endfor %}
+	          </tbody>
+			</table>
+		</div>
+	</div>
+	<div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+</div>
+{% endblock %}

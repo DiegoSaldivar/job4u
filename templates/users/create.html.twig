@@ -1,0 +1,20 @@
+{% extends 'admin-base.html.twig' %}
+
+{% block title %}Job4u Admin create User{% endblock %}
+
+{% block breadcrumb %}
+	<!-- Breadcrumbs-->
+       <ol class="breadcrumb">
+         <li class="breadcrumb-item">
+           <a href="/admin">Dashboard</a>
+         </li>
+         <li class="breadcrumb-item">users</li>
+         <li class="breadcrumb-item active">create</li>
+       </ol>
+{% endblock %}
+
+{% block body %}
+{{ dump(userForm) }}
+	<h1>Create new User:</h1>
+	{{ form(userForm) }}
+{% endblock %}
