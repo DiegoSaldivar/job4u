@@ -1,7 +1,7 @@
 <?php
 namespace App\Extractor;
 
-use App\DTO\Car;
+//use App\DTO\Car;
 
 class ModelExtractor implements ExtractorInterface
 {
