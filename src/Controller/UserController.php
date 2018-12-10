@@ -14,6 +14,13 @@ class UserController extends Controller
     }
     
     /**
+     * @Route("/userdash",name="userdash")
+     */
+    public function userdash(){
+        return $this->render('userdash.html.twig');
+    }
+    
+    /**
      * @Route("/register",name="register")
      */
     public function register(){
