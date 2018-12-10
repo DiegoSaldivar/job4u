@@ -7,10 +7,17 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends Controller
 {
     /**
-     * @Route("/",name="login_entryPage")
+     * @Route("/",name="login")
      */
     public function login(){
-        return $this->render('base.html.twig');
+        return $this->render('login.html.twig');
+    }
+    
+    /**
+     * @Route("/register",name="register")
+     */
+    public function register(){
+        return $this->render('register.html.twig');
     }
     
     /**
