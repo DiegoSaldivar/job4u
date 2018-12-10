@@ -7,19 +7,19 @@ use Symfony\Component\Routing\Annotation\Route;
 class LanguageController extends Controller
 {
     /**
-     * @Route("/admin/bo/language/list",name="language_list")
+     * @Route("/admin/language/list",name="list_languages")
      */
     public function listOfLanguages() {
         
-        $this->render('base.html.twig');
+        return $this->render('languages/languagelist.html.twig');
     }
     
     /**
-     * @Route("/admin/bo/language/create",name="language_create")
+     * @Route("/admin/language/create",name="language_create")
      */
     public function createLanguage(){
         
-        $this->render('base.html.twig');
+        return $this->render('base.html.twig');
     }
 }
 

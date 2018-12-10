@@ -7,11 +7,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class RoleController extends Controller
 {
     /**
-     * @Route("/admin/bo/role/list",name="role_list")
+     * @Route("/admin/bo/role/list",name="list_roles")
      */
     public function listOfRole() {
         
-        $this->render('base.html.twig');
+        return $this->render('roles/rolelist.html.twig');
     }
     
     /**
@@ -19,7 +19,7 @@ class RoleController extends Controller
      */
     public function createRole(){
         
-        $this->render('base.html.twig');
+        return $this->render('base.html.twig');
     }
 }
 

@@ -7,11 +7,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class PostController extends Controller
 {
     /**
-     * @Route("/admin/bo/posts/list",name="post_list")
+     * @Route("/admin/bo/posts/list",name="list_posts")
      */
     public function listOfPosts() {
         
-        $this->render('base.html.twig');
+        return $this->render('posts/postlist.html.twig');
     }
    
 }
