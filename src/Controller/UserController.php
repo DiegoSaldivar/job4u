@@ -79,7 +79,75 @@ class UserController extends Controller
         return $this->render('users/userlist.html.twig',['userList'=>$userList]);
     }
     
+    /**
+     * @Route("/admin/user/modify/{id}",name="mod_user")
+     */
+    public function update($id,Request $request)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $user = $entityManager->getRepository(User::class)->find($id);
+        
+        if (!$user) {
+            throw $this->createNotFoundException(
+                'No product found for id '.$id
+                );
+        }
+        
+        
+        $options=['standalone'=>true];
+        
+        $userForm=$this->createForm(UserFormType::class,$user);
+        
+        
+        $userForm->add('role',EntityType::class,array(
+            'class'=>Role::class,
+            'choice_label'=>'Role'
+        )
+            );
+        
+        if ($options['standalone'])
+        {
+            $userForm->add('submit', SubmitType::class);
+        }
+        
+        $userForm->handleRequest($request);
+        
+        
+        
+        if($userForm->isSubmitted()&&$userForm->isValid()){
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+            return $this->redirectToRoute('list_users');
+        }
+        
+        return $this->render('users/modify.html.twig',
+            [
+                'userForm'=>$userForm->createView()
+            ]
+        );
+      
+    }
     
-
+    
+    /**
+     * @Route("/admin/user/delete/{id}",name="del_user")
+     */
+    public function delete($id,Request $request)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $user = $entityManager->getRepository(User::class)->find($id);
+        
+        if (!$user) {
+            throw $this->createNotFoundException(
+                'No product found for id '.$id
+                );
+        }
+        
+        $entityManager->remove($user);
+        $entityManager->flush();
+        
+        return $this->redirectToRoute('list_users');
+    }
 }
 

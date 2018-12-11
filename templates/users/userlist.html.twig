@@ -29,6 +29,8 @@
 	              <th>Username</th>
 	              <th>Verified</th>
 	              <th>Role</th>
+	              <th>Modify</th>
+	              <th>Delete</th>
 	            </tr>
 	          </thead>
 	          <tfoot>
@@ -38,6 +40,8 @@
 	              <th>Username</th>
 	              <th>Verified</th>
 	              <th>Role</th>
+	              <th>Modify</th>
+	              <th>Delete</th>
 	            </tr>
 	          </tfoot>
 	          <tbody>
@@ -48,6 +52,8 @@
 	              <td>{{ user.getUsername() }}</td>
 	              <td>{{ user.getVerified ? 'true' : 'false' }}</td>
 	              <td>{{ user.getRole().getLabel() }}</td>
+	              <td><a href="/admin/user/modify/{{ user.getId() }}" class="btn btn-info"><i class="fas fa-address-book"></i></a></td>
+	              <td><a href="/admin/user/delete/{{ user.getId() }}" class="btn btn-danger"><i class="fas fa-user-times"></i></a></td>
 	            </tr>
 	            {% endfor %}
 	          </tbody>

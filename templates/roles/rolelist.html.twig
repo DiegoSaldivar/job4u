@@ -25,12 +25,16 @@
 	          <thead>
 	            <tr>
 	              <th>Label</th>
+	              <th>Modify</th>
+	              <th>Delete</th>
 	            </tr>
 	          </thead>
 	          <tbody>
 	            {% for role in roleList %}
 	            <tr>
 	              <td>{{ role.getLabel() }}</td>
+	              <td><a href="/admin/role/modify/{{ role.getId() }}" class="btn btn-info"><i class="fas fa-address-book"></i></a></td>
+	              <td><a href="/admin/role/delete/{{ role.getId() }}" class="btn btn-danger"><i class="fas fa-user-times"></i></a></td>
 	            </tr>
 	            {% endfor %}
 	          </tbody>
