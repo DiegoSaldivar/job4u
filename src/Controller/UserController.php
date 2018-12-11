@@ -2,7 +2,6 @@
 namespace App\Controller;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -10,15 +9,17 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Role;
 use App\Entity\User;
 use App\Form\UserFormType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
 
-class UserController extends Controller
+class UserController extends AbstractController
 {
     /**
      * @Route("/",name="login")
      */
-    public function login(){
+    public function login()
+    {
         return $this->render('login.html.twig');
     }
     
