@@ -10,6 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Role;
 use App\Entity\User;
 use App\Form\UserFormType;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 
 
@@ -18,8 +19,16 @@ class UserController extends Controller
     /**
      * @Route("/",name="login")
      */
-    public function login(){
-        return $this->render('login.html.twig');
+    public function login(AuthenticationUtils $authenticationUtils){
+        // get the login error if there is one
+        $error = $authenticationUtils->getLastAuthenticationError();
+        // last username entered by the user
+        $lastUsername = $authenticationUtils->getLastUsername();
+        
+        return $this->render('login.html.twig', [
+            'last_username' => $lastUsername,
+            'error' => $error
+        ]);
     }
     
     /**
@@ -27,6 +36,13 @@ class UserController extends Controller
      */
     public function userdash(){
         return $this->render('userdash.html.twig');
+    }
+    
+    /**
+     * @Route("/userposts",name="userposts")
+     */
+    public function userposts(){
+        return $this->render('userposts.html.twig');
     }
     
     /**
