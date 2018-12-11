@@ -50,10 +50,6 @@ class UserController extends Controller
         return $this->render('register.html.twig',['userForm'=>$userForm->createView()]);
 
     }
-    public function login()
-    {
-        return $this->render('base.html.twig');
-    }
     
     /**
      * @Route("/admin",name="admin_overview")
