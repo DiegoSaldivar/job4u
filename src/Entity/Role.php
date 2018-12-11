@@ -41,5 +41,14 @@ class Role
         return $this;
     }
     
+    public function getRole()
+    {
+        return $this;
+    }
+    
+    public function __toString()
+    {
+        return $this->getLabel();
+    }
    
 }
