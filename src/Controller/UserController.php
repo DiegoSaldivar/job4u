@@ -10,6 +10,11 @@ use App\Entity\Role;
 use App\Entity\User;
 use App\Form\UserFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Encoder\EncoderFactory;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 
 
@@ -18,9 +23,17 @@ class UserController extends AbstractController
     /**
      * @Route("/",name="login")
      */
-    public function login()
+    public function login(AuthenticationUtils $authenticationUtils)
     {
-        return $this->render('login.html.twig');
+        $error= $authenticationUtils->getLastAuthenticationError();
+        $lastUsername=$authenticationUtils->getLastUsername();
+        return $this->render(
+            'login.html.twig',
+            [
+                'last_username'=>$lastUsername,
+                'error'=>$error
+            ]
+        );
     }
     
     /**
@@ -33,7 +46,7 @@ class UserController extends AbstractController
     /**
      * @Route("/register",name="register")
      */
-    public function register(Request $request){
+    public function register(Request $request,EncoderFactoryInterface $encoderFactory,TokenStorageInterface $tokenStorage){
         $user=new User();
         
         $userForm=$this->createForm(UserFormType::class,$user,['standalone'=>true]);
@@ -41,9 +54,35 @@ class UserController extends AbstractController
         $userForm->handleRequest($request);
         if($userForm->isSubmitted()&&$userForm->isValid()) {
             $user->setVerified(false);
+            
+            $encoder=$encoderFactory->getEncoder(User::class);
+            
+            $user->setSalt(md5($user->getUsername()));
+            
+            $password=$encoder ->encodePassword(
+                $user->getPassword(),
+                $user->getSalt()
+            );
+            
+            $user->setPassword($password);
+            
+            $user->addRole(
+              $this->getDoctrine()->getManager()->getRepository(Role::class)->findOneByLabel('ROLE_USER')  
+            );
+            
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
+            
+            $tokenStorage->setToken(
+                new UsernamePasswordToken(
+                    $user,
+                    null,
+                    'main',
+                    $user->getRoles()
+                )      
+            );
+            
             return $this->redirectToRoute('login');
         }
        
