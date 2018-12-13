@@ -16,7 +16,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
 
-
 class UserController extends AbstractController
 {
     
@@ -25,6 +24,13 @@ class UserController extends AbstractController
      */
     public function userdash(){
         return $this->render('userdash.html.twig');
+    }
+    
+    /**
+     * @Route("/userposts",name="userposts")
+     */
+    public function userposts(){
+        return $this->render('userposts.html.twig');
     }
     
     /**
