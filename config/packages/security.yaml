@@ -15,8 +15,6 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
-            http_basic:
-                provider: in_memory
             anonymous: true
 
             guard:
