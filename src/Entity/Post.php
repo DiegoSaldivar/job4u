@@ -35,6 +35,13 @@ class Post
     
     
     /**
+     * 
+     * @ORM\Column(type="string", length=255)
+     */
+    private $category;
+    
+    
+    /**
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
