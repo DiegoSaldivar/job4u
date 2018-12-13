@@ -3,11 +3,19 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @UniqueEntity(
+ *  fields= {"email"},
+ *  message= "The email you have indicated is already used!"
+ *  
+ * )
  */
-class User
+class User implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -18,14 +26,17 @@ class User
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min="8", minMessage="Your Username must be minium 8 characters")
      */
     private $username;
 
     /**
      * @ORM\Column(type="string", length=128)
+     * @Assert\Length(min="8", minMessage="Your password must be minium 8 characters")
+     * 
      */
     private $password;
-
+    
     /**
      * @ORM\Column(type="string", length=255)
      */
@@ -33,6 +44,7 @@ class User
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Email()
      */
     private $email;
 
@@ -41,10 +53,10 @@ class User
      */
     private $verified;
     
-    /**
+    /*
      * @ORM\ManyToOne(targetEntity="App\Entity\Role", inversedBy="User")
+     *private $role;
      */
-    private $role;
     
     
     /**
@@ -86,7 +98,8 @@ class User
     {
         return $this->id;
     }
-
+/* 
+    
     public function getRole():?Role
     {
         return $this->role;
@@ -97,7 +110,7 @@ class User
         $this->role=$role;
         return $this;
     }
-    
+     */
     
     public function getUsername(): ?string
     {
@@ -158,4 +171,14 @@ class User
 
         return $this;
     }
+    
+    public function eraseCredentials() {}
+    
+    public function getSalt() {}
+    
+    public function getRoles(){
+        return ['ROLE_USER'];
+    }
+    
+    
 }

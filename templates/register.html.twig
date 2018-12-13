@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+
+
 {% block body %}
 
 	<div class="py-5 text-center" style="background-image: url('/img/bg_job4u.jpg');background-size:cover;">
@@ -8,8 +10,19 @@
         <div class="mx-auto bg-white p-5 col-md-6 col-10">
           <h1 class="mb-4">Sign Up</h1>
 
-          {{ form(userForm) }}
-          <a href="{{ path('login') }}" class="text-secondary px-2">Already registered? Log In!</a>
+{#           {{ form(userForm) }}#}
+        {{ form_start(userForm) }}
+	
+    	{{ form_row(userForm.fullname, {'attr': {'placeholder': 'Enter your Full Name'}}) }}
+    	
+    	{{ form_row(userForm.username, {'attr': {'placeholder': 'Enter your Full Name'}}) }}
+    	{{ form_row(userForm.email, {'attr': {'placeholder': 'Enter your email'}}) }}
+    	{{ form_row(userForm.password, {'attr': {'placeholder': 'Enter your password'}}) }}
+    	
+    	    	
+    	{{ form_end(userForm) }}
+    	
+          <a href="{{ path('register') }}" class="text-secondary px-2">Already registered? Log In!</a>
         </div>
       </div>
     </div>

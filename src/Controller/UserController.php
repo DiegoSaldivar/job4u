@@ -10,17 +10,12 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Role;
 use App\Entity\User;
 use App\Form\UserFormType;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 
 
 class UserController extends Controller
 {
-    /**
-     * @Route("/",name="login")
-     */
-    public function login(){
-        return $this->render('login.html.twig');
-    }
     
     /**
      * @Route("/userdash",name="userdash")
@@ -32,13 +27,19 @@ class UserController extends Controller
     /**
      * @Route("/register",name="register")
      */
-    public function register(Request $request){
+    public function register(Request $request, 
+        UserPasswordEncoderInterface $encoder){
+        
         $user=new User();
         
         $userForm=$this->createForm(UserFormType::class,$user,['standalone'=>true]);
         
         $userForm->handleRequest($request);
+        
         if($userForm->isSubmitted()&&$userForm->isValid()) {
+            $hash = $encoder->encodePassword($user, $user->getPassword());
+            $user->setPassword($hash);
+            
             $user->setVerified(false);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
