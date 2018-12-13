@@ -66,6 +66,25 @@ body {
 [tabindex="-1"]:focus {
   outline: 0 !important; }
 
+/* Form validation classes */
+.valid-feedback {
+    display: none;
+    width: 100%;
+    font-size: 1rem;
+    color: #4bbf6b;
+    margin-top: -1rem;
+    margin-bottom: 1rem;
+}
+
+.invalid-feedback {
+    display: none;
+    width: 100%;
+    font-size: 1rem;
+    color: #E74C3C;
+    margin-top: -1rem;
+    margin-bottom: 1rem;
+}
+
 hr {
   box-sizing: content-box;
   height: 0;
@@ -266,6 +285,9 @@ fieldset {
 	padding: 1rem;
 	resize: none;
 }
+
+
+
 legend {
   display: block;
   width: 100%;
@@ -1422,12 +1444,12 @@ textarea.form-control {
     margin-right: 0.3125rem;
     margin-left: 0; }
 
-.valid-feedback {
+/* .valid-feedback {
   display: none;
   width: 100%;
   margin-top: 0.25rem;
   font-size: 80%;
-  color: #28a745; }
+  color: #28a745; } */
 
 .valid-tooltip {
   position: absolute;
@@ -1504,12 +1526,12 @@ textarea.form-control {
 .was-validated .custom-file-input:valid:focus ~ .custom-file-label, .custom-file-input.is-valid:focus ~ .custom-file-label {
   box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25); }
 
-.invalid-feedback {
+/* .invalid-feedback {
   display: none;
   width: 100%;
   margin-top: 0.25rem;
   font-size: 80%;
-  color: #dc3545; }
+  color: #dc3545; } */
 
 .invalid-tooltip {
   position: absolute;

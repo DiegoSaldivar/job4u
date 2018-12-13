@@ -4,32 +4,36 @@
 <div class="py-5 text-center" style="background-image: url('/img/bg_job4u.jpg');background-size:cover;">
 <div class="container">
 <div class="row">
-  <div class="mx-auto col-md-6 col-10 bg-white p-5" style="">
+  <div class="mx-auto col-md-6 col-10 bg-white p-5">
         <h1 class="mb-4">Log in</h1>
-        <!--  <form>
-          <div class="form-group"> 
-          	<input type="email" class="form-control form-control-lg" placeholder="Enter e-mail" id="logemail" required="required" name="logemail"> </div>
-          <div class="form-group mb-3"> 
-          	<input type="password" class="form-control form-control-lg" placeholder="Password" id="logpassword" required="required" name="logpassword">
-          </div>
-            <button type="submit" class="btn btn-block btn-secondary py-2 btn-lg">Log In</button>
-            <p class="form-text text-muted text-center">
-              <a href="{{ path('register') }}" class="text-secondary px-2">Not a registered user? Sign Up!</a>
-            </p> 
-        </form>-->
-        <form method="post" class="needs-validation" novalidate id="logInForm">
+        
+        <form method="post" class="validateLogin needs-validation" novalidate>
             {% if error %}
                 <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
             {% endif %}
-
-            <label for="inputEmail" class="sr-only">Email</label>
-            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control mb-3" placeholder="E-mail" required autofocus>
-            <label for="inputPassword" class="sr-only">Password</label>
-            <input type="password" name="password" id="inputPassword" class="form-control mb-3" placeholder="Password" required>
-        
-            <input type="hidden" name="_csrf_token"
-                   value="{{ csrf_token('authenticate') }}">
-        
+			<div class="form-row">
+                <label for="inputEmail" class="required">Email</label>
+                <input type="email" value="{{ last_username }}" class="form-control mb-3" id="inputEmail" autocomplete="off" required>
+                	<div class="valid-feedback">
+                      E-mail format is ok!
+                    </div>
+                    <div class="invalid-feedback">
+                      The e-mail is not correct!
+                    </div>
+            </div>
+            <div class="form-row">
+                <label for="Password" class="required">Password</label>
+                <input type="password" class="form-control mb-3" id="inputPassword" autocomplete="off" required>
+                	<div class="valid-feedback">
+                      Everything is fine!
+                    </div>
+                    <div class="invalid-feedback">
+                      The password length should be at least 5 characters!
+                    </div>
+        	
+                <input type="hidden" name="_csrf_token"
+                       value="{{ csrf_token('authenticate') }}">
+        	</div>
             <button class="btn btn-lg btn-secondary btn-block mb-3" type="submit">
                 Sign in
             </button>
@@ -39,4 +43,10 @@
     </div>
   </div>
 </div>
+{% block javascripts %}
+{{ parent() }}
+<!-- Custom script for validation of Log In page-->
+		    <script src="/js/validateLogin.js"></script>
+{% endblock %}
+
 {% endblock %}
