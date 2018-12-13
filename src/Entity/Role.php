@@ -41,7 +41,7 @@ class Role
         return $this;
     }
     
-    public function getRole()
+    public function getGroup()
     {
         return $this;
     }

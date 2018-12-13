@@ -3,9 +3,12 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Doctrine\Common\Collections\ArrayCollection;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -53,11 +56,13 @@ class User implements UserInterface
      */
     private $verified;
     
-    /*
-     * @ORM\ManyToOne(targetEntity="App\Entity\Role", inversedBy="User")
-     *private $role;
+    /**
+     * @ORM\Column(type="array")
      */
+    private $roles;
+
     
+    private $salt;
     
     /**
      * Many User knows one or Many languages.
@@ -91,6 +96,7 @@ class User implements UserInterface
         $this->languages = new \Doctrine\Common\Collections\ArrayCollection();
         $this->friendsWithMe = new \Doctrine\Common\Collections\ArrayCollection();
         $this->myFriends = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->roles=new ArrayCollection();
     }
     
 
@@ -98,19 +104,6 @@ class User implements UserInterface
     {
         return $this->id;
     }
-/* 
-    
-    public function getRole():?Role
-    {
-        return $this->role;
-    }
-    
-    public function setRole(Role $role):self
-    {
-        $this->role=$role;
-        return $this;
-    }
-     */
     
     public function getUsername(): ?string
     {
@@ -171,15 +164,48 @@ class User implements UserInterface
 
         return $this;
     }
-   
-    public function eraseCredentials() {}
     
-    public function getSalt() {}
+    public function eraseCredentials()
+    {}
+
+    public function getSalt()
+    {
+        return $this->salt;
+    }
+
+    public function setSalt($salt){
+        $this->salt=$salt;
+    }
     
-    public function getRoles(){
-        return ['ROLE_USER'];
+    public function getRoles()
+    {
+        $roles=[];
+        foreach($this->roles as $role){
+            $roles[]=$role->getLabel();
+            
+            return $roles;
+        }
+    }
+    
+    public function setRoles($roles) {
+        foreach($roles as $role){
+            $this->addRole($role);
+        }
+    }
+    
+    public function addRole(Role $role) {
+        if(!$this->roles->contains($role)){
+            $this->roles->add($role);
+        }
+        
+        return $this;
     }
     
     
+    public function removeRole(Role $role){
+        if($this->roles->contains($role)){
+            $this->roles->remove($role);
+        }
+    }
 
 }
