@@ -11,11 +11,9 @@ use App\Entity\User;
 use App\Form\UserFormType;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Symfony\Component\Security\Core\Encoder\EncoderFactory;
-use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+
+
+
 
 
 
@@ -32,7 +30,7 @@ class UserController extends AbstractController
     /**
      * @Route("/register",name="register")
      */
-    public function register(Request $request,EncoderFactoryInterface $encoderFactory,TokenStorageInterface $tokenStorage){
+    public function register(Request $request,UserPasswordEncoderInterface $encoder){
 
         $user=new User();
         
@@ -41,21 +39,11 @@ class UserController extends AbstractController
         $userForm->handleRequest($request);
         
         if($userForm->isSubmitted()&&$userForm->isValid()) {
-            $hash = $encoder->encodePassword($user, $user->getPassword());
+           
+            $hash=$encoder->encodePassword($user,$user->getPassword());
             $user->setPassword($hash);
             
             $user->setVerified(false);
-            
-            $encoder=$encoderFactory->getEncoder(User::class);
-            
-            $user->setSalt(md5($user->getUsername()));
-            
-            $password=$encoder ->encodePassword(
-                $user->getPassword(),
-                $user->getSalt()
-            );
-            
-            $user->setPassword($password);
             
             $user->addRole(
               $this->getDoctrine()->getManager()->getRepository(Role::class)->findOneByLabel('ROLE_USER')  
@@ -65,16 +53,8 @@ class UserController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
             
-            $tokenStorage->setToken(
-                new UsernamePasswordToken(
-                    $user,
-                    null,
-                    'main',
-                    $user->getRoles()
-                )      
-            );
             
-            return $this->redirectToRoute('login');
+            return $this->redirectToRoute('app_login');
         }
        
         
