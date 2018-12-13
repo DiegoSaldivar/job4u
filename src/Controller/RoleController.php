@@ -43,5 +43,64 @@ class RoleController extends Controller
         
         return $this->render('roles/create.html.twig',['roleForm'=>$roleForm->createView()]);
     }
+    
+    
+    /**
+     * @Route("/admin/role/modify/{id}",name="mod_role")
+     */
+    public function update($id,Request $request)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $role = $entityManager->getRepository(Role::class)->find($id);
+        
+        if (!$role) {
+            throw $this->createNotFoundException(
+                'No product found for id '.$id
+                );
+        }
+        
+        
+        $roleForm=$this->createForm(RoleFormType::class,$role,['standalone'=>true]);
+        
+        $roleForm->handleRequest($request);
+        
+        
+        
+        if($roleForm->isSubmitted()&&$roleForm->isValid()){
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($role);
+            $entityManager->flush();
+            return $this->redirectToRoute('list_roles');
+        }
+        
+        return $this->render('roles/modify.html.twig',
+            [
+                'roleForm'=>$roleForm->createView()
+            ]
+            );
+        
+    }
+    
+    
+    /**
+     * @Route("/admin/role/delete/{id}",name="del_role")
+     */
+    public function delete($id,Request $request)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $role = $entityManager->getRepository(Role::class)->find($id);
+        
+        if (!$role) {
+            throw $this->createNotFoundException(
+                'No product found for id '.$id
+                );
+        }
+        
+        $entityManager->remove($role);
+        $entityManager->flush();
+        
+        return $this->redirectToRoute('list_roles');
+    }
+    
 }
 
