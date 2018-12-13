@@ -111,13 +111,6 @@ class UserController extends AbstractController
 
         $userForm=$this->createForm(UserFormType::class,$user);
         
-        
-        $userForm->add('role',EntityType::class,array(
-            'class'=>Role::class,
-            'choice_label'=>'Role'
-            )
-        );
-        
         if ($options['standalone'])
         {
             $userForm->add('submit', SubmitType::class);
@@ -129,6 +122,9 @@ class UserController extends AbstractController
         
         if($userForm->isSubmitted()&&$userForm->isValid()){
             $user->setVerified(true);
+            $user->addRole(
+                $this->getDoctrine()->getManager()->getRepository(Role::class)->findOneByLabel('ROLE_USER')
+            );
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();

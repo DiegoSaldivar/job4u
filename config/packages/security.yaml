@@ -1,34 +1,46 @@
 security:
-    encoders:
-        App\Entity\User: 
+   encoders:
+      App\Entity\User: 
             algorithm:          pbkdf2
             hash_algorithm:     sha512
             encode_as_base64:   true
             iterations:         1000
             key_length:          40
 
-
-    role_hierarchy:
-		ROLE_ADMIN:	ROLE_USER
-    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
-    providers:
-        in_memory: { memory: ~ }
-        user_provider:
-        	entity:
-        		class: App\Entity\User
-        		property: email
+      
+   role_hierarchy:
+      ROLE_ADMIN: ROLE_USER
+                
+   providers:
+      chain_provider:
+           chain:
+               providers: [in_memory, user_provider]
+      in_memory: 
+         memory:
+            users: 
+               admin:
+                  password: admin123
+                  roles:    'ROLE_ADMIN'
+      user_provider:
+         entity:
+            class: App\Entity\User
+            property: email
         
-    firewalls:
-        dev:
+   firewalls:
+         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        main:
+         main:
+            http_basic:
+                provider: in_memory
             anonymous: true
             form_login:
-            	login_path: login
-            	check_path: login
-            	provider:	user_provider
-            logout: logout
+                 login_path: login
+                 check_path: login
+                 provider:   user_provider
+            logout:
+                 path: /logout
+                 target: /
             
             # activate different ways to authenticate
 
@@ -40,6 +52,6 @@ security:
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
-    access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+   access_control:
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/profile, roles: ROLE_USER }

@@ -43,7 +43,9 @@ class User implements UserInterface
      */
     private $verified;
      
-    
+    /**
+     * @ORM\Column(type="json")
+     */
     private $roles;
     
     private $salt;
