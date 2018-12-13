@@ -2,7 +2,6 @@
 namespace App\Controller;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -11,10 +10,16 @@ use App\Entity\Role;
 use App\Entity\User;
 use App\Form\UserFormType;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Encoder\EncoderFactory;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 
 
-class UserController extends Controller
+class UserController extends AbstractController
 {
     
     /**
@@ -27,9 +32,8 @@ class UserController extends Controller
     /**
      * @Route("/register",name="register")
      */
-    public function register(Request $request, 
-        UserPasswordEncoderInterface $encoder){
-        
+    public function register(Request $request,EncoderFactoryInterface $encoderFactory,TokenStorageInterface $tokenStorage){
+
         $user=new User();
         
         $userForm=$this->createForm(UserFormType::class,$user,['standalone'=>true]);
@@ -41,9 +45,35 @@ class UserController extends Controller
             $user->setPassword($hash);
             
             $user->setVerified(false);
+            
+            $encoder=$encoderFactory->getEncoder(User::class);
+            
+            $user->setSalt(md5($user->getUsername()));
+            
+            $password=$encoder ->encodePassword(
+                $user->getPassword(),
+                $user->getSalt()
+            );
+            
+            $user->setPassword($password);
+            
+            $user->addRole(
+              $this->getDoctrine()->getManager()->getRepository(Role::class)->findOneByLabel('ROLE_USER')  
+            );
+            
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
+            
+            $tokenStorage->setToken(
+                new UsernamePasswordToken(
+                    $user,
+                    null,
+                    'main',
+                    $user->getRoles()
+                )      
+            );
+            
             return $this->redirectToRoute('login');
         }
        
@@ -72,13 +102,6 @@ class UserController extends Controller
 
         $userForm=$this->createForm(UserFormType::class,$user);
         
-        
-        $userForm->add('role',EntityType::class,array(
-            'class'=>Role::class,
-            'choice_label'=>'Role'
-            )
-        );
-        
         if ($options['standalone'])
         {
             $userForm->add('submit', SubmitType::class);
@@ -90,6 +113,9 @@ class UserController extends Controller
         
         if($userForm->isSubmitted()&&$userForm->isValid()){
             $user->setVerified(true);
+            $user->addRole(
+                $this->getDoctrine()->getManager()->getRepository(Role::class)->findOneByLabel('ROLE_USER')
+            );
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();

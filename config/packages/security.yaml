@@ -15,14 +15,16 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
+            http_basic:
+                provider: in_memory
             anonymous: true
+
             guard:
                 authenticators:
                     - App\Security\LoginFormAuthenticator
             logout:
                  path: logout
           
-
             # activate different ways to authenticate
 
             # http_basic: true
@@ -33,6 +35,7 @@ security:
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
+
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/profile, roles: ROLE_USER }

@@ -1,12 +1,13 @@
 <?php
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Post;
+use App\Form\PostFormType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class PostController extends Controller
+class PostController extends AbstractController
 {
     /**
      * @Route("/admin/posts/list",name="list_posts")
@@ -58,20 +59,20 @@ class PostController extends Controller
     
     
     /**
-     * @Route("/admin/user/delete/{id}",name="del_user")
+     * @Route("/admin/user/delete/{id}",name="del_post")
      */
     public function delete($id,Request $request)
     {
         $entityManager = $this->getDoctrine()->getManager();
-        $user = $entityManager->getRepository(User::class)->find($id);
+        $post = $entityManager->getRepository(Post::class)->find($id);
         
-        if (!$user) {
+        if (!$post) {
             throw $this->createNotFoundException(
                 'No product found for id '.$id
                 );
         }
         
-        $entityManager->remove($user);
+        $entityManager->remove($post);
         $entityManager->flush();
         
         return $this->redirectToRoute('list_users');
