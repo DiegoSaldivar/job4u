@@ -28,36 +28,42 @@ class User implements UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=50)
      * @Assert\Length(min="8", minMessage="Your Username must be minium 8 characters")
+     * @Assert\NotBlank()
      */
     private $username;
 
     /**
-     * @ORM\Column(type="string", length=128)
+     * @ORM\Column(type="string", length=50)
      * @Assert\Length(min="8", minMessage="Your password must be minium 8 characters")
+     * @Assert\NotBlank()
      * 
      */
     private $password;
     
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=50)
+     * @Assert\NotBlank()
      */
     private $Fullname;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=50)
      * @Assert\Email()
+     * @Assert\NotBlank()
      */
     private $email;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Assert\NotBlank()
      */
     private $verified;
     
     /**
      * @ORM\Column(type="array")
+     * 
      */
     private $roles;
 
