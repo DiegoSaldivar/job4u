@@ -10,7 +10,6 @@
         <div class="mx-auto bg-white p-5 col-md-6 col-10">
           <h1 class="mb-4">Sign Up</h1>
 
-{#           {{ form(userForm) }}#}
         {{ form_start(userForm) }}
 	
     	{{ form_row(userForm.fullname, {'attr': {'placeholder': 'Enter your Full Name'}}) }}
@@ -23,9 +22,14 @@
     	{{ form_end(userForm) }}
     	
           <a href="{{ path('app_login') }}" class="text-secondary px-2">Already registered? Log In!</a>
+
         </div>
       </div>
     </div>
   </div>
-
+{% block javascripts %}
+{{ parent() }}
+<!-- Custom script for validation of Log In page-->
+		    <script src="/js/validateRegister.js"></script>
+{% endblock %}
 {% endblock %}
