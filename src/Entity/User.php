@@ -15,8 +15,12 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @UniqueEntity(
  *  fields= {"email"},
  *  message= "The email you have indicated is already used!"
+ *  )
  *  
- * )
+ * @UniqueEntity(
+ *  fields= {"username"},
+ *  message= "The username you have indicated is already used!"
+ *  )
  */
 class User implements UserInterface
 {
@@ -28,25 +32,25 @@ class User implements UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=50)
      * @Assert\Length(min="8", minMessage="Your Username must be minium 8 characters")
      */
     private $username;
 
     /**
-     * @ORM\Column(type="string", length=128)
+     * @ORM\Column(type="string", length=50)
      * @Assert\Length(min="8", minMessage="Your password must be minium 8 characters")
      * 
      */
     private $password;
     
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=50)
      */
     private $Fullname;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=50)
      * @Assert\Email()
      */
     private $email;
