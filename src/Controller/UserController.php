@@ -37,7 +37,7 @@ class UserController extends AbstractController
     /**
      * @Route("/register",name="register")
      */
-    public function register(Request $request,UserPasswordEncoderInterface $encoder){
+    public function register(Request $request,UserPasswordEncoderInterface $encoder,\Swift_Mailer $mailer){
 
         $user=new User();
         
@@ -51,6 +51,24 @@ class UserController extends AbstractController
             $user->setPassword($hash);
             
             $user->setVerified(false);
+            
+            $message = (new \Swift_Message('Job4U Account Verification Email'))
+            ->setFrom('lookingjob4u@gmail.com')
+            ->setTo($user->getEmail())
+            ->setBody(
+                $this->renderView(
+                    // templates/emails/registration.html.twig
+                    'emails/registration.html.twig',
+                    array(
+                        'name' => $user->getUsername(),
+                        'email' => $user->getEmail()      
+                    )
+                ),
+                'text/html'
+            );
+            
+            $mailer->send($message);
+            
             
             $user->addRole(
               $this->getDoctrine()->getManager()->getRepository(Role::class)->findOneByLabel('ROLE_USER')  
@@ -68,6 +86,23 @@ class UserController extends AbstractController
         return $this->render('register.html.twig',['userForm'=>$userForm->createView()]);
 
     }
+    
+    /**
+     *  @Route("/user/verify/{email}",name="verify_reg")
+     */
+    public function verifyUser($email)
+    {
+        $user=$this->getDoctrine()->getManager()->getRepository(User::class)->findOneByEmail($email);      
+        $user->setVerified(true);
+        
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($user);
+        $entityManager->flush();
+        
+        return $this->redirectToRoute('app_login');
+    }
+    
+    
     
     /**
      * @Route("/admin",name="admin_overview")
