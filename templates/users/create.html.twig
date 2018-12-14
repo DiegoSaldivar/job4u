@@ -16,5 +16,20 @@
 {% block body %}
 {{ dump(userForm) }}
 	<h1>Create new User:</h1>
-	{{ form(userForm) }}
+	{{ form_start(userForm) }}
+		{{ form_row(userForm.fullname) }}
+		{{ form_row(userForm.email) }}
+		{{ form_row(userForm.username) }}
+		{{ form_row(userForm.password) }}
+
+		<div class="form-group">
+			<label for="role_select">Roles:</label>
+			<select id="role_select" class="form-control" name="roles">
+				{% for role in roles %}
+					<option>{{ role.getLabel() }}</option>
+				{% endfor %}
+			</select>
+		</div>
+	{{ form_end(userForm) }}
+	{#{{ form(userForm) }}#}
 {% endblock %}

@@ -11,6 +11,7 @@ use App\Entity\User;
 use App\Form\UserFormType;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 
 
@@ -74,13 +75,22 @@ class UserController extends AbstractController
     /**
      * @Route("/admin/user/create",name="create_user")
      */
-    public function createUser(Request $request){
+    public function createUser(Request $request,UserPasswordEncoderInterface $encoder){
        
         $user=new User();
         
         $options=['standalone'=>true];
 
         $userForm=$this->createForm(UserFormType::class,$user);
+        
+        $roles=$this->getDoctrine()->getManager()->getRepository(Role::class)->findAll();
+        
+        $roleLabels=[];
+        
+        foreach ($roles as $role){
+            $roleLabels[$role->getLabel()]= $role;
+        }
+   
         
         if ($options['standalone'])
         {
@@ -92,9 +102,12 @@ class UserController extends AbstractController
         
         
         if($userForm->isSubmitted()&&$userForm->isValid()){
+            $hash=$encoder->encodePassword($user,$user->getPassword());
+            $user->setPassword($hash);
+            
             $user->setVerified(true);
             $user->addRole(
-                $this->getDoctrine()->getManager()->getRepository(Role::class)->findOneByLabel('ROLE_USER')
+                $this->getDoctrine()->getManager()->getRepository(Role::class)->findOneByLabel($request->request->get('roles'))
             );
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
@@ -102,7 +115,11 @@ class UserController extends AbstractController
             return $this->redirectToRoute('list_users');
         }
         
-        return $this->render('users/create.html.twig',['userForm'=>$userForm->createView()]);
+        return $this->render('users/create.html.twig',
+            [
+                'userForm'=>$userForm->createView(),
+                'roles'=>$roleLabels
+            ]);
     }
     
     /**
@@ -120,7 +137,7 @@ class UserController extends AbstractController
     /**
      * @Route("/admin/user/modify/{id}",name="mod_user")
      */
-    public function update($id,Request $request)
+    public function update($id,Request $request,UserPasswordEncoderInterface $encoder)
     {
         $entityManager = $this->getDoctrine()->getManager();
         $user = $entityManager->getRepository(User::class)->find($id);
@@ -137,12 +154,6 @@ class UserController extends AbstractController
         $userForm=$this->createForm(UserFormType::class,$user);
         
         
-        $userForm->add('role',EntityType::class,array(
-            'class'=>Role::class,
-            'choice_label'=>'Role'
-        )
-            );
-        
         if ($options['standalone'])
         {
             $userForm->add('submit', SubmitType::class);
@@ -153,6 +164,8 @@ class UserController extends AbstractController
         
         
         if($userForm->isSubmitted()&&$userForm->isValid()){
+            $hash=$encoder->encodePassword($user,$user->getPassword());
+            $user->setPassword($hash);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
