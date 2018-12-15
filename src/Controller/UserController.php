@@ -40,17 +40,19 @@ class UserController extends AbstractController
     public function register(Request $request,UserPasswordEncoderInterface $encoder,\Swift_Mailer $mailer){
 
         $user=new User();
+        $user->setVerified(false);
         
         $userForm=$this->createForm(UserFormType::class,$user,['standalone'=>true]);
         
         $userForm->handleRequest($request);
+
         
         if($userForm->isSubmitted()&&$userForm->isValid()) {
            
             $hash=$encoder->encodePassword($user,$user->getPassword());
             $user->setPassword($hash);
             
-            $user->setVerified(false);
+            
             
             $message = (new \Swift_Message('Job4U Account Verification Email'))
             ->setFrom('lookingjob4u@gmail.com')
