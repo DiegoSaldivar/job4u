@@ -12,6 +12,10 @@ use App\Form\UserFormType;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\Response;
 
 
 
@@ -40,6 +44,7 @@ class UserController extends AbstractController
     public function register(Request $request,UserPasswordEncoderInterface $encoder,\Swift_Mailer $mailer){
 
         $user=new User();
+        $user->setVerified(false);
         
         $userForm=$this->createForm(UserFormType::class,$user,['standalone'=>true]);
         
@@ -49,9 +54,7 @@ class UserController extends AbstractController
            
             $hash=$encoder->encodePassword($user,$user->getPassword());
             $user->setPassword($hash);
-            
-            $user->setVerified(false);
-            
+                       
             $message = (new \Swift_Message('Job4U Account Verification Email'))
             ->setFrom('lookingjob4u@gmail.com')
             ->setTo($user->getEmail())
@@ -241,5 +244,66 @@ class UserController extends AbstractController
         
         return $this->redirectToRoute('list_users');
     }
+    
+    
+    
+    /**
+     * @Route("/support/contact",name="contact")
+     */
+    public function contact(Request $request,\Swift_Mailer $mailer)
+    {
+        $form=$this->createFormBuilder()
+            ->add('from',EmailType::class)
+            ->add('message', TextareaType::class)
+            ->add('send',SubmitType::class)
+            ->getForm()
+        ;
+        
+        $form->handleRequest($request);
+        
+        if($form->isSubmitted()&&$form->isValid())
+        {
+            $data=$form->getData();
+            
+            $message= new \Swift_Message('Mail from contact form');
+            
+            $message
+                ->setFrom($data['from'])
+                ->setTo('lookingjob4u@gmail.com')
+                ->setBody($data['message'])
+            ;
+            
+            $mailer->send($message);    
+                
+            return $this->redirectToRoute('contact_confirm');
+        }
+        
+            
+        return $this->render('emails/contact.html.twig',['contactForm'=>$form->createView()]);
+    }
+    
+    
+    /**
+     * @Route("/support/contact/confim",name="contact_confirm")
+     */
+    public function confirmContact() {
+        $response = new Response();
+            $response->setStatusCode(200);
+            $response->headers->set('Refresh', '4; url=/support/contact');
+        
+        $response->send();
+        
+        
+        return $this->render('emails/confirm_contact.html.twig');
+    }
 }
+
+
+
+
+
+
+
+
+
 
