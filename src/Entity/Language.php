@@ -21,16 +21,31 @@ class Language
      */
     private $label;
 
+    /**
+     * Returns the id of the language
+     * 
+     * @return string|NULL
+     */
     public function getId(): ?string
     {
         return $this->id;
     }
 
+    /**
+     * Changes the name of the language
+     * 
+     * @return string|NULL label
+     */
     public function getLabel(): ?string
     {
         return $this->label;
     }
 
+    /**
+     * Changes the name of the language
+     * @param string $label New Name
+     * @return Language Returns Current language 
+     */
     public function setLabel(string $label): self
     {
         $this->label = $label;

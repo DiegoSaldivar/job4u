@@ -46,16 +46,33 @@ class Post
      */
     private $createdAt;
 
+    
+    /**
+     * Returns the id of the post
+     * 
+     * @return string|NULL id
+     */
     public function getId(): ?string
     {
         return $this->id;
     }
 
+    /**
+     * Returns the title of the post
+     * 
+     * @return string|NULL title
+     */
     public function getTitle(): ?string
     {
         return $this->title;
     }
 
+    /**
+     * Sets the title of the post
+     * 
+     * @param string $title New title
+     * @return Post Returns the current post
+     */
     public function setTitle(string $title): self
     {
         $this->title = $title;
@@ -63,19 +80,34 @@ class Post
         return $this;
     }
 
+    /**
+     * Returns the message written by the user
+     * 
+     * @return string content
+     */
     public function getContent()
     {
         return $this->content;
     }
 
+    /**
+     * Set the content of the post
+     * 
+     * @param string $content
+     * @return Post Returns the current post
+     */
     public function setContent($content): self
     {
         $this->content = $content;
 
         return $this;
     }
+    
+    
     /**
-     * @return \DateTime
+     * Returns the date and time where the post was created
+     * 
+     * @return \DateTime date and time of the post
      */
     public function getCreatedAt():\DateTime
     {
@@ -83,7 +115,8 @@ class Post
     }
 
     /**
-     * @param mixed $createdAt
+     * Set the current time as the time and date where the post was created
+     * 
      */
     public function setCreatedAt():self
     {

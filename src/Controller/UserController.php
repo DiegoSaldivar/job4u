@@ -304,7 +304,7 @@ class UserController extends AbstractController
     public function following()
     {
         $currentUser=$this->getUser();
-        $followingList=$this->getDoctrine()->getManager()->getRepository($className)
+
         return $this->render('users/following.html.twig');
     }
 }
