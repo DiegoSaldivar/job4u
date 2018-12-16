@@ -1,13 +1,13 @@
 <?php
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Role;
 use App\Form\RoleFormType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class RoleController extends Controller
+class RoleController extends AbstractController
 {
     /**
      * @Route("/admin/role/list",name="list_roles")

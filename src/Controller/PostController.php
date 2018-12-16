@@ -49,7 +49,7 @@ class PostController extends AbstractController
             return $this->redirectToRoute('list_posts');
         }
         
-        return $this->render('users/modify.html.twig',
+        return $this->render('posts/modify.html.twig',
             [
                 'postForm'=>$postForm->createView()
             ]
@@ -59,7 +59,7 @@ class PostController extends AbstractController
     
     
     /**
-     * @Route("/admin/user/delete/{id}",name="del_post")
+     * @Route("/admin/post/delete/{id}",name="del_post")
      */
     public function delete($id,Request $request)
     {
@@ -75,7 +75,45 @@ class PostController extends AbstractController
         $entityManager->remove($post);
         $entityManager->flush();
         
-        return $this->redirectToRoute('list_users');
+        return $this->redirectToRoute('list_posts');
+    }
+    
+    /**
+     * @Route("/userdash/category/{category}",name="cat_list")
+     */
+    public function categoryPostList($category,Request $request)
+    {
+       
+        $post=new Post();
+        
+        $entityManager = $this->getDoctrine()->getManager();
+        $postList = $entityManager->getRepository(Post::class)->findByCategory($category);
+        
+        $postForm=$this->createForm(PostFormType::class,$post,['standalone'=>true]);       
+        $postForm->handleRequest($request);
+        
+        
+        if($postForm->isSubmitted()&&$postForm->isValid()){
+            $user=$this->getUser();
+            $post->setUser($user);
+            $post->setCategory($category);
+            $post->setCreatedAt();
+            
+            $entityManager->persist($post);
+            $entityManager->flush();
+            
+            $this->redirectToRoute('cat_list',['category'=>$category]);
+        }
+      
+        
+        return $this->render('userposts.html.twig',
+            [
+                'postList'=>$postList,
+                'postForm'=>$postForm->createView()
+            ]
+        );
+        
+        
     }
    
 }

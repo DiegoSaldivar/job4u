@@ -65,12 +65,15 @@ class Post
 
     public function getContent()
     {
-        return $this->content;
+        if ($this->content != '')
+        {
+            return stream_get_contents($this->content);
+        }
     }
 
     public function setContent($content): self
     {
-        $this->content = $content;
+        $this->content =$content;
 
         return $this;
     }
@@ -88,8 +91,28 @@ class Post
     public function setCreatedAt():self
     {
         $dt = new \DateTime();
-        $this->createdAt = $dt->format('H:i:s d-m-Y');
+        $this->createdAt = $dt;
         return $this;
     }
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    public function setCategory($category)
+    {
+        $this->category = $category;
+    }
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    public function setUser($user)
+    {
+        $this->user = $user;
+    }
+
+
 
 }

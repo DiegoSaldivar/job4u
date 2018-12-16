@@ -3,6 +3,7 @@
 {% block body %}
 <div class="py-5 text-center" style="background-image: url('/img/bg_job4u.jpg'); background-size: cover;" >
 
+{#
 <div class="container" >
   <div class="row">
     <div class="col-md-12">
@@ -19,44 +20,38 @@
       </div>
     </div>
   </div>
+#}  
+
+<div class="container bg-light rounded p-2" >
+	<h3>Create a post:</h3>
+  	{{ form(postForm) }}
+  </div>
 </div>
     
 <div class="container">
-      <div class="row">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="row">
-                <div class="col-md-12 col-12">
-                  <div class="card text-center">
-                    <div class="card-body bg-light">
-                      <div class="row d-flex align-items-center flex-row">
-                        <div class="col-2 col-md-2" style=""><img class="img-fluid d-block" src="https://static.pingendo.com/img-placeholder-1.svg"></div>
-                        <div class="col-5 col-md-5" style="">
-                          <p contenteditable="true" style="">Username</p>
-                        </div>
-                        <div class="col-5 col-md-5" style="">
-                          <p class="">Category</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card-body">
-                      <div class="row">
-                        <div class="col-md-12 col-12" style="">
-                          <h5 class="text-center">Title of the post</h5>
-                          <p class="">Paragraph. Then, my friend, when darkness overspreads my eyes, and heaven and
-                            earth seem to dwell in my soul and absorb its power, like the form of a beloved mistress,
-                            then I often think with longing.</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card-footer text-muted"> 2 days ago </div>
-                  </div>
-                </div>
-              </div>
+    {% for post in postList %}
+      <div class="card m-2 text-center">
+        <div class="card-body bg-light">
+          <div class="row d-flex align-items-center flex-row">
+            <div class="col-2 col-md-2" style=""><img class="img-fluid d-block" src="https://static.pingendo.com/img-placeholder-1.svg"></div>
+            <div class="col-5 col-md-5" style="">
+              <p contenteditable="true" style="">{{ post.getUser().getUsername() }}</p>
+            </div>
+            <div class="col-5 col-md-5" style="">
+              <p class="">{{ post.getCategory() }}</p>
             </div>
           </div>
         </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12 col-12" style="">
+              <h5 class="text-center">{{ post.getTitle() }}</h5>
+              <p class="">{{ post.getContent() }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer text-muted">{{ post.getCreatedAt()|date('Y-m-d H:i:s') }}</div>
       </div>
-  </div>
+    {% endfor %} 
 </div>
 {% endblock %}

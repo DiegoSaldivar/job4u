@@ -1,13 +1,13 @@
 <?php
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Language;
 use App\Form\LanguageFormType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class LanguageController extends Controller
+class LanguageController extends AbstractController
 {
     /**
      * @Route("/admin/language/list",name="list_languages")

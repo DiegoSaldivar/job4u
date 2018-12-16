@@ -27,6 +27,8 @@
 	              <th>Title</th>
 	              <th>Content</th>
 	              <th>Created at</th>
+	              <th>Modify</th>
+	              <th>Delete</th>
 	            </tr>
 	          </thead>
 	          <tbody>
@@ -34,7 +36,9 @@
 	            <tr>
 	              <td>{{ post.getTitle() }}</td>
 	              <td>{{ post.getContent() }}</td>
-	              <td>{{ post.getCreatedAt() }}<td>
+	              <td>{{ post.getCreatedAt()|date('Y-m-d H:i:s') }}</td>
+	              <td><a href="/admin/post/modify/{{ post.getId() }}" class="btn btn-info"><i class="fas fa-address-book"></i></a></td>
+	              <td><a href="/admin/post/delete/{{ post.getId() }}" class="btn btn-danger"><i class="fas fa-user-times"></i></a></td>              
 	            </tr>
 	            {% endfor %}
 	          </tbody>
