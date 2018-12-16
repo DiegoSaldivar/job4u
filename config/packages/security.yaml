@@ -36,6 +36,7 @@ security:
 
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/, allow_if: "is_anonymous() and !is_authenticated()" }
         # - { path: ^/profile, roles: ROLE_USER }
         
     access_denied_url: /userdash
