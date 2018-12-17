@@ -102,7 +102,7 @@ class PostController extends AbstractController
             $entityManager->persist($post);
             $entityManager->flush();
             
-            $this->redirectToRoute('cat_list',['category'=>$category]);
+            return $this->redirectToRoute('buffer',['category'=>$category]);
         }
       
         
@@ -114,6 +114,14 @@ class PostController extends AbstractController
         );
         
         
+    }
+    
+    /**
+     * @Route("/userdash/category/{category}/buffer",name="buffer")
+     */
+    public function postBuffer($category)
+    {
+        return $this->redirectToRoute('cat_list',['category'=>$category]);
     }
    
 }
