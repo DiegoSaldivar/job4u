@@ -11,10 +11,10 @@
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false"><i class="fas fa-globe p-1"></i>Services</a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdown" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 44px, 0px);">
-                    <a class="dropdown-item" href="#">Cleaner</a>
-                    <a class="dropdown-item" href="#">Factory</a>
-                    <a class="dropdown-item" href="#">Restaurant</a>
-                    <a class="dropdown-item" href="#">Hotel</a>
+                    <a class="dropdown-item" href="{{ path('cat_list',{'category':'cleaner'}) }}">Cleaner</a>
+                    <a class="dropdown-item" href="{{ path('cat_list',{'category':'factory'}) }}">Factory</a>
+                    <a class="dropdown-item" href="{{ path('cat_list',{'category':'restaurant'}) }}">Restaurant</a>
+                    <a class="dropdown-item" href="{{ path('cat_list',{'category':'hotel'}) }}">Hotel</a>
                   </div>
                 </li>
                 <li class="nav-item dropdown text-white text-uppercase">
