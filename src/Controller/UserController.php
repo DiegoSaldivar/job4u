@@ -49,12 +49,12 @@ class UserController extends AbstractController
         $userForm=$this->createForm(UserFormType::class,$user,['standalone'=>true]);
         
         $userForm->handleRequest($request);
+
         
         if($userForm->isSubmitted()&&$userForm->isValid()) {
            
             $hash=$encoder->encodePassword($user,$user->getPassword());
             $user->setPassword($hash);
-                       
             $message = (new \Swift_Message('Job4U Account Verification Email'))
             ->setFrom('lookingjob4u@gmail.com')
             ->setTo($user->getEmail())

@@ -1,8 +1,6 @@
 $(document).ready(function() {
 
-	
-	
-	// Apply a display block to full name info on focus on password
+	// Apply a display block to full name info
     $('#user_form_fullname').on('focus', function () {
         $('#fname').css('display', 'block');
     });
@@ -13,8 +11,7 @@ $(document).ready(function() {
         $('#fname').css('display', 'none');
     });
     
- // on every key pressed
-    // checked the 
+ // on every key pressed check length, one letter, one capital letter, one space
     $('#user_form_fullname').on('keyup', function () {
         //Gathering
         const fnameValue = $(this).val(); // this refers to the element that trigger the event
@@ -36,9 +33,7 @@ $(document).ready(function() {
         check('#space', oneSpaceCheck);
     });
       
-    //if confirmation password is same as password 
-    //and password check all the cases
-    //Replace the form with "Success"
+    //if check ok or not, change classes
     function check(selector, validCheck) {
         //if ok => class change to "valid"
         // else class change to "invalid"
@@ -50,13 +45,10 @@ $(document).ready(function() {
             $(selector).removeClass('valid');
         }
     }
-    
-
-    
 
 /* CHECK LENGTH OF USERNAME */
 
-//Apply a display block to username on focus on password
+//Apply a display block to username
 	$('#user_form_username').on('focus', function () {
 	    $('#usernameInfo').css('display', 'block');
 	});
@@ -67,13 +59,10 @@ $(document).ready(function() {
 	    $('#usernameInfo').css('display', 'none');
 	});
 	
-	// on every key pressed
-	// checked the 
 	$('#user_form_username').on('keyup', function () {
 	    //Gathering
 	    const unameValue = $(this).val(); // this refers to the element that trigger the event
 	    console.log(unameValue);
-	    //Logic
 	    // length > 8
 	    const ulengthCheck = (unameValue.length >= 8);;
 	    
@@ -84,26 +73,23 @@ $(document).ready(function() {
 	
 /* CHECK E-MAIL FORMAT */
 
-//Apply a display block to username on focus on password
+//Apply a display block to e-mail field
 	$('#user_form_email').on('focus', function () {
 	    $('#emailCheck').css('display', 'block');
 	});
 	
 	
-	//display none to username when blur
+	//display none to e-mail when blur
 	$('#user_form_email').on('blur', function () {
 	    $('#emailCheck').css('display', 'none');
 	});
-	
-	// on every key pressed
-	// check email 
+	//check e-mail validity based on the regex
 	$('#user_form_email').on('keyup', function () {
 	    //Gathering
 	    const emailValue = $(this).val(); // this refers to the element that trigger the event
 	    console.log(emailValue);
-	    //Logic
 	    // length > 8
-	    const emailChecking = emailValue.match(/[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/);
+	    const emailChecking = emailValue.match(/^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i);
 	    
 	    //display
 	    check('#emailChk', emailChecking);
@@ -112,13 +98,13 @@ $(document).ready(function() {
 
 /* CHECK PASSWORD FORMAT */
 
-//Apply a display block to username on focus on password
+//Apply a display block to password on focus
 	$('#user_form_password_first').on('focus', function () {
 	    $('#passwordCheck').css('display', 'block');
 	});
 	
 	
-	//display none to username when blur
+	//display none to password on blur
 	$('#user_form_password_first').on('blur', function () {
 	    $('#passwordCheck').css('display', 'none');
 	});
@@ -132,7 +118,7 @@ $(document).ready(function() {
 	});
 	
 	// on every key pressed
-	// check email 
+	// check length, letter, capital letter, one number for the 1st password field
 	$('#user_form_password_first').on('keyup', function () {
 	    //Gathering
 	    const passwdValue = $('#user_form_password_first').val(); // this refers to the element that trigger the event
@@ -141,7 +127,6 @@ $(document).ready(function() {
         const sameCheck = (passConfirm === passValue);
         console.log(sameCheck);
 
-	    //Logic
 	    // length > 8
         const plengthCheck = (passwdValue.length >= 8);
         // at least one letter str.match(/[A-z]/)

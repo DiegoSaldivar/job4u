@@ -1,66 +1,77 @@
 {% extends 'base.html.twig' %}
 
-
-
 {% block body %}
 
-	<div class="py-5 text-center" style="background-image: url('/img/bg_job4u.jpg');background-size:cover;">
-    <div class="container">
-      <div class="row">
-        <div class="mx-auto bg-white p-5 col-md-6 col-10">
-          <h1 class="mb-4">Sign Up</h1>
+<div class="py-5 text-center"
+	style="background-image: url('/img/bg_job4u.jpg'); background-size: cover;">
+	<div class="container">
+		<div class="row">
+			<div class="mx-auto bg-white p-5 col-md-6 col-10" role="form">
+				<h1 class="mb-4">Sign Up</h1>
 
-        {{ form_start(userForm, {'attr': {novalidate: 'novalidate'}}) }}
-		
-    	{{ form_row(userForm.fullname, {'attr': {'placeholder': 'Enter your Full Name'}}) }}
-        	<div id="fname" style="display: none;">
-    			<h5>Your Full Name must contain:</h5>
-    			<ul>
-    				<li id="letter" class="invalid">At least <strong>a letter</strong></li>
-    				<li id="capital" class="invalid">At least <strong>a capital letter</strong></li>
-    				<li id="space" class="invalid">At least <strong>a space</strong></li>
-    				<li id="length" class="invalid">At least <strong>8 characters in length</strong></li>
-    			</ul>
-    		 </div>
-    	{{ form_row(userForm.username, {'attr': {'placeholder': 'Enter your User Name'}}) }}
-        	<div id="usernameInfo" style="display: none;">
-    			<p>Your Username must contain:</p>
-    			<ul>
-    				<li id="ulength" class="invalid">At least <strong>8 characters in length</strong></li>
-    			</ul>
-    		</div>
-    	{{ form_row(userForm.email, {'attr': {'placeholder': 'Enter your email'}}) }}
-        	<div id="emailCheck" style="display: none;">
-    			<p>Your e-mail address must be properly formatted</p>
-    			<ul>
-    				<li id="emailChk" class="invalid">E-mail <strong>is properly formatted</strong></li>
-    			</ul>
-    		</div>
-    	{{ form_row(userForm.password, {'attr': {'placeholder': 'Enter your password'}}) }}
-    		<div id="passwordCheck" style="display: none;">
-    			<p>Your password must contain:</p>
-    			<ul>
-    				<li id="pLetter" class="invalid">At least <strong>a letter</strong></li>
-    				<li id="pCapital" class="invalid">At least <strong>a capital letter</strong></li>
-    				<li id="pNumber" class="invalid">At least <strong>a number</strong></li>
-    				<li id="pLength" class="invalid">At least <strong>8 characters in length</strong></li>
-    				<li id="pConfirm" class="invalid"><strong>Password=confirm Password</strong></li>
-    			</ul>
-    		</div>
-    	    	
-    	{{ form_end(userForm) }}
-    	
-          <a href="{{ path('app_login') }}" class="text-secondary px-2">Already registered? Log In!</a>
-          
-		  
-		  
-        </div>
-      </div>
-    </div>
-  </div>
+				{{ form_start(userForm, {'attr': {novalidate: 'novalidate'}}) }}
+
+				{{ form_row(userForm.fullname, {'attr': {'placeholder': 'Enter your Full Name'}}) }}
+				<div id="fname" style="display: none;">
+					<h5>Your Full Name must contain:</h5>
+					<ul>
+						<li id="letter" class="invalid">At least <strong>a
+								letter</strong></li>
+						<li id="capital" class="invalid">At least <strong>a
+								capital letter</strong></li>
+						<li id="space" class="invalid">At least <strong>a
+								space</strong></li>
+						<li id="length" class="invalid">At least <strong>8
+								characters in length</strong></li>
+					</ul>
+				</div>
+				{{ form_row(userForm.username, {'attr': {'placeholder': 'Enter your User Name'}}) }}
+				<div id="usernameInfo" style="display: none;">
+					<p>Your Username must contain:</p>
+					<ul>
+						<li id="ulength" class="invalid">At least <strong>
+						8 characters in length</strong></li>
+					</ul>
+				</div>
+				{{ form_row(userForm.email, {'attr': {'placeholder': 'Enter your email'}}) }}
+				<div id="emailCheck" style="display: none;">
+					<p>Your e-mail address must be properly formatted</p>
+					<ul>
+						<li id="emailChk" class="invalid">E-mail <strong>is
+								properly formatted</strong></li>
+					</ul>
+				</div>
+				{{ form_row(userForm.password, {'attr': {'placeholder': 'Enter your password'}}) }}
+				<div id="passwordCheck" style="display: none;">
+					<p>Your password must contain:</p>
+					<ul>
+						<li id="pLetter" class="invalid">At least <strong>a
+								letter</strong></li>
+						<li id="pCapital" class="invalid">At least <strong>a
+								capital letter</strong></li>
+						<li id="pNumber" class="invalid">At least <strong>a
+								number</strong></li>
+						<li id="pLength" class="invalid">At least <strong>8
+								characters in length</strong></li>
+						<li id="pConfirm" class="invalid"><strong>Password
+								must match</strong></li>
+					</ul>
+				</div>
+
+				{{ form_end(userForm) }}
+
+				<a href="{{ path('app_login') }}" class="text-secondary px-2">Already
+					registered? Log In!</a>
+
+
+
+			</div>
+		</div>
+	</div>
+</div>
 {% block javascripts %}
 {{ parent() }}
 <!-- Custom script for validation of Log In page-->
-		    <script src="/js/validateRegister.js"></script>
+<script src="/js/validateRegister.js"></script>
 {% endblock %}
 {% endblock %}
