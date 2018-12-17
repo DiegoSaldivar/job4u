@@ -25,7 +25,9 @@
 	          <thead>
 	            <tr>
 	              <th>Title</th>
+	              <th>Category</th>
 	              <th>Content</th>
+	              <th>From</th>
 	              <th>Created at</th>
 	              <th>Modify</th>
 	              <th>Delete</th>
@@ -35,7 +37,9 @@
 	            {% for post in postList %}
 	            <tr>
 	              <td>{{ post.getTitle() }}</td>
+	              <td>{{ post.getCategory() }}</td>
 	              <td>{{ post.getContent() }}</td>
+	              <td>{{ post.getUser().getUsername() }}</td>
 	              <td>{{ post.getCreatedAt()|date('Y-m-d H:i:s') }}</td>
 	              <td><a href="/admin/post/modify/{{ post.getId() }}" class="btn btn-info"><i class="fas fa-address-book"></i></a></td>
 	              <td><a href="/admin/post/delete/{{ post.getId() }}" class="btn btn-danger"><i class="fas fa-user-times"></i></a></td>              

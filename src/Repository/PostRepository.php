@@ -18,7 +18,20 @@ class PostRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Post::class);
     }
-
+    
+    
+    public function findByCategory($value)
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.category= :val')
+            ->setParameter('val', $value)
+            ->orderBy('p.createdAt','DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+        
+    }
+    
     // /**
     //  * @return Post[] Returns an array of Post objects
     //  */
