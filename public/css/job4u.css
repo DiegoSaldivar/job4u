@@ -40,6 +40,10 @@
   box-sizing: border-box; }
 
 /* Filed info display */
+
+#header_p{
+	text-align: left !important;
+}
 #fieldInfo h4 {
 	margin: 0 0 10px 0;
 	padding: 0;
@@ -242,7 +246,7 @@ img {
 #headerimg {
   vertical-align: middle;
   border-style: none;
-  height: 2rem; }
+  height: 4rem; }
 
 svg {
   overflow: hidden;
