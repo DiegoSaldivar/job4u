@@ -21,7 +21,7 @@
 	</div>
     <div class="card-body">
       <div class="table-responsive">
-	        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+	        <table class="table table-bordered" id="dataTable" >
 	          <thead>
 	            <tr>
 	              <th>Full Name</th>
@@ -32,16 +32,6 @@
 	              <th>Delete</th>
 	            </tr>
 	          </thead>
-	          <tfoot>
-	            <tr>
-	              <th>Full Name</th>
-	              <th>E-Mail</th>
-	              <th>Username</th>
-	              <th>Verified</th>
-	              <th>Modify</th>
-	              <th>Delete</th>
-	            </tr>
-	          </tfoot>
 	          <tbody>
 	            {% for user in userList %}
 	            <tr>
@@ -54,6 +44,16 @@
 	            </tr>
 	            {% endfor %}
 	          </tbody>
+	          <tfoot>
+	            <tr>
+	              <th>Full Name</th>
+	              <th>E-Mail</th>
+	              <th>Username</th>
+	              <th>Verified</th>
+	              <th>Modify</th>
+	              <th>Delete</th>
+	            </tr>
+	          </tfoot>
 			</table>
 		</div>
 	</div>
