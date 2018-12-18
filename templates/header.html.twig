@@ -18,7 +18,6 @@
                     <a class="dropdown-item" href="{{ path('cat_list',{'category':'hotel'}) }}">Hotel</a>
                   </div>
                 </li>
-        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                 <li class="nav-item dropdown text-white text-uppercase">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
@@ -38,10 +37,10 @@
                     <a class="nav-link active" href="{{ path('admin_overview') }}">
                     	<i class="fas fa-cogs text-white p-1"></i>Admin</a>
             	</li>
-        </ul>
+        
         {%  endif %}
-      		</ul>
-    </div>
+        </ul>
+      </div>
   </div>
 </div>
 </div>
