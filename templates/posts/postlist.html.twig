@@ -38,7 +38,18 @@
 	            <tr>
 	              <td>{{ post.getTitle() }}</td>
 	              <td>{{ post.getCategory() }}</td>
-	              <td>{{ post.getContent() }}</td>
+	              <td>
+                    {% set content = post.getContent() %}
+					{% if content|is_json %}
+						<iframe width="560" height="315"
+							src="{{ content.url|translateToEmbeddedLink }}"
+							allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+							allowfullscreen> 
+						</iframe>
+					{% else %}
+					    {{ content }}
+					{% endif %}
+                  </td>
 	              <td>{{ post.getUser().getUsername() }}</td>
 	              <td>{{ post.getCreatedAt()|date('Y-m-d H:i:s') }}</td>
 	              <td><a href="/admin/post/modify/{{ post.getId() }}" class="btn btn-info"><i class="fas fa-address-book"></i></a></td>
