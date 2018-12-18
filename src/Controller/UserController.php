@@ -296,6 +296,17 @@ class UserController extends AbstractController
         
         return $this->render('emails/confirm_contact.html.twig');
     }
+    
+    
+    /**
+     * @Route("/user/following",name="following_list")
+     */
+    public function following()
+    {
+        $currentUser=$this->getUser();
+
+        return $this->render('users/following.html.twig');
+    }
 }
 
 

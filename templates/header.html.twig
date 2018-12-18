@@ -5,7 +5,8 @@
     <div class="col-md-12 text-center d-md-flex align-items-center text-white">
 	 <a href="{{ path('app_login') }}"><img class="headerimg" src="/img/job4u.svg" alt="job4u"></a>
 	 	<p class="pl-3 mt-2 col-md-5" id="header_p">JOB FOR YOU - A website for unemployed people without certification in search for jobs, advices, information and for recruiters to post job offers</p>
-        	<ul class="nav mx-md-auto d-flex justify-content-center text-white">
+
+    	<ul class="nav mx-md-auto d-flex justify-content-center text-white">
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                 <li class="nav-item text-white text-uppercase"> <a class="nav-link active" href="{{ path('userdash') }}"><i class="fas fa-home text-white p-1"></i>Home</a></li>
                 <li class="nav-item dropdown text-uppercase">
