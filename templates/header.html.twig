@@ -4,6 +4,7 @@
   <div class="row">
     <div class="col-md-12 text-center d-md-flex align-items-center text-white">
 	 <a href="{{ path('app_login') }}"><img id="headerimg" src="/img/job4u.svg" alt="job4u"></a>
+	 	<p class="pl-3 mt-2 col-md-5" id="header_p">JOB FOR YOU - A website for unemployed people without certification in search for jobs, advices, information and for recruiters to post job offers</p>
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
         	<ul class="nav mx-md-auto d-flex justify-content-center text-white">
                 <li class="nav-item text-white text-uppercase"> <a class="nav-link active" href="{{ path('userdash') }}"><i class="fas fa-home text-white p-1"></i>Home</a></li>
@@ -25,11 +26,18 @@
                   <div class="dropdown-menu" aria-labelledby="navbarDropdown" x-placement="bottom-start" 
                   			style="position: absolute; will-change: transform; top: 0px; left: 0px;
                   		 	transform: translate3d(0px, 44px, 0px);">
-                    <a class="dropdown-item" href="#">View Profile</a>
+{#                     <a class="dropdown-item" href="#">View Profile</a>#}
                     <a class="dropdown-item" href="/logout">Log Out</a>
                   </div>
             	</li>
-      		</ul>
+        {%  endif %}
+        {%  if is_granted('ROLE_ADMIN') %}
+        
+                <li class="nav-item text-white text-uppercase">
+                    <a class="nav-link active" href="{{ path('admin_overview') }}">
+                    	<i class="fas fa-cogs text-white p-1"></i>Admin</a>
+            	</li>
+        </ul>
         {%  endif %}
     </div>
   </div>
