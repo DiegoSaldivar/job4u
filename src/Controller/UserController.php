@@ -25,7 +25,7 @@ class UserController extends AbstractController
 {
     
     /**
-     * @Route("/userdash",name="userdash")
+     * @Route("/",name="userdash")
      */
     public function userdash(){
         return $this->render('userdash.html.twig');
