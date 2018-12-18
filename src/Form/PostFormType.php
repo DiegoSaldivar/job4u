@@ -22,6 +22,7 @@ class PostFormType extends AbstractType
             ->add('content', TextareaType::class)
         ;
         
+            
         if ($options['standalone'])
         {
             $builder->add('submit', SubmitType::class);

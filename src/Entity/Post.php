@@ -65,9 +65,19 @@ class Post
 
     public function getContent()
     {
-        if ($this->content != '')
-        {
-            return stream_get_contents($this->content);
+        if($this->content!=''){
+            $ct= stream_get_contents($this->content);
+            $target = urlencode($ct);
+            
+            if ((strpos($ct, 'http://') !== false)||(strpos($ct, 'https://') !== false)) {
+                $key = "5c1385b510419135d8379e15248059a8664c375223e08";
+                //https://api.linkpreview.net?key=5c1385b510419135d8379e15248059a8664c375223e08&q=https://www.youtube.com/watch?v=MDiRptzx-Vs
+                
+                $ret = file_get_contents("https://api.linkpreview.net?key={$key}&q={$target}");
+                
+                return json_decode($ret);
+            }
+            return $ct;
         }
     }
 

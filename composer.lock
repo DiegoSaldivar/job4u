@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "abd5ff42ecc832b268bff924b867a5c7",
+    "content-hash": "baf77e60a693bbda6f21bd0903db49f1",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -299,16 +299,16 @@
         },
         {
             "name": "doctrine/dbal",
-            "version": "v2.9.0",
+            "version": "v2.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "21fdabe2fc01e004e1966f200d900554876bc63c"
+                "reference": "ec74d6e300d78fbc896669c3ca57ef9719adc9c6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/21fdabe2fc01e004e1966f200d900554876bc63c",
-                "reference": "21fdabe2fc01e004e1966f200d900554876bc63c",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/ec74d6e300d78fbc896669c3ca57ef9719adc9c6",
+                "reference": "ec74d6e300d78fbc896669c3ca57ef9719adc9c6",
                 "shasum": ""
             },
             "require": {
@@ -377,7 +377,7 @@
                 "php",
                 "queryobject"
             ],
-            "time": "2018-12-04T04:39:48+00:00"
+            "time": "2018-12-14T04:51:13+00:00"
         },
         {
             "name": "doctrine/doctrine-bundle",
@@ -5049,33 +5049,88 @@
             "time": "2018-11-11T19:52:12+00:00"
         },
         {
-            "name": "twig/twig",
-            "version": "v2.5.0",
+            "name": "twig/extensions",
+            "version": "v1.5.4",
             "source": {
                 "type": "git",
-                "url": "https://github.com/twigphp/Twig.git",
-                "reference": "6a5f676b77a90823c2d4eaf76137b771adf31323"
+                "url": "https://github.com/twigphp/Twig-extensions.git",
+                "reference": "57873c8b0c1be51caa47df2cdb824490beb16202"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/6a5f676b77a90823c2d4eaf76137b771adf31323",
-                "reference": "6a5f676b77a90823c2d4eaf76137b771adf31323",
+                "url": "https://api.github.com/repos/twigphp/Twig-extensions/zipball/57873c8b0c1be51caa47df2cdb824490beb16202",
+                "reference": "57873c8b0c1be51caa47df2cdb824490beb16202",
+                "shasum": ""
+            },
+            "require": {
+                "twig/twig": "^1.27|^2.0"
+            },
+            "require-dev": {
+                "symfony/phpunit-bridge": "^3.4",
+                "symfony/translation": "^2.7|^3.4"
+            },
+            "suggest": {
+                "symfony/translation": "Allow the time_diff output to be translated"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.5-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Twig_Extensions_": "lib/"
+                },
+                "psr-4": {
+                    "Twig\\Extensions\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                }
+            ],
+            "description": "Common additional features for Twig that do not directly belong in core",
+            "keywords": [
+                "i18n",
+                "text"
+            ],
+            "time": "2018-12-05T18:34:18+00:00"
+        },
+        {
+            "name": "twig/twig",
+            "version": "v2.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twigphp/Twig.git",
+                "reference": "a11dd39f5b6589e14f0ff3b36675d06047c589b1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/a11dd39f5b6589e14f0ff3b36675d06047c589b1",
+                "reference": "a11dd39f5b6589e14f0ff3b36675d06047c589b1",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.0",
                 "symfony/polyfill-ctype": "^1.8",
-                "symfony/polyfill-mbstring": "~1.0"
+                "symfony/polyfill-mbstring": "^1.3"
             },
             "require-dev": {
                 "psr/container": "^1.0",
                 "symfony/debug": "^2.7",
-                "symfony/phpunit-bridge": "^3.3"
+                "symfony/phpunit-bridge": "^3.4.19|^4.1.8"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.5-dev"
+                    "dev-master": "2.6-dev"
                 }
             },
             "autoload": {
@@ -5113,7 +5168,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2018-07-13T07:18:09+00:00"
+            "time": "2018-12-16T10:36:48+00:00"
         },
         {
             "name": "webmozart/assert",
@@ -5700,16 +5755,16 @@
         },
         {
             "name": "symfony/maker-bundle",
-            "version": "v1.9.0",
+            "version": "v1.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/maker-bundle.git",
-                "reference": "e873047b6022a0343c9354f65d5d47b9e351dd53"
+                "reference": "aa37ea1323ac888913bdd3e5f83d846798729449"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/maker-bundle/zipball/e873047b6022a0343c9354f65d5d47b9e351dd53",
-                "reference": "e873047b6022a0343c9354f65d5d47b9e351dd53",
+                "url": "https://api.github.com/repos/symfony/maker-bundle/zipball/aa37ea1323ac888913bdd3e5f83d846798729449",
+                "reference": "aa37ea1323ac888913bdd3e5f83d846798729449",
                 "shasum": ""
             },
             "require": {
@@ -5762,7 +5817,7 @@
                 "scaffold",
                 "scaffolding"
             ],
-            "time": "2018-11-03T18:25:11+00:00"
+            "time": "2018-12-13T18:54:47+00:00"
         },
         {
             "name": "symfony/panther",
